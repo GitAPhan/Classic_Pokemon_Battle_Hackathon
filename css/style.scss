@@ -2,3 +2,47 @@
 @import "color";
 @import "header";
 @import "footer";
+
+body {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    row-gap: 20px;
+    >h1 {
+        align-self: end;
+        display: grid;
+        place-items: center;
+        row-gap: 10px;
+
+        >p {
+            font-size: .5em;
+            text-align: center;
+        }
+
+        >a {
+            text-decoration: none;
+            color: white;
+            background-color: grey;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: .8em;
+
+            &:hover {
+                color: gray;
+                background-color: whitesmoke;
+                box-shadow: 1px 1px 2px black;
+            }
+        }
+    }
+}
+
+.card_selection {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    position: relative;
+    align-self: start;
+    column-gap: 10px;
+    padding: 10px;
+}

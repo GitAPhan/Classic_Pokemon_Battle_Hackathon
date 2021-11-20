@@ -1,0 +1,63 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+img, iframe {
+  max-width: 100%;
+}
+
+body {
+  position: relative;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  row-gap: 20px;
+}
+
+body > h1 {
+  -ms-grid-row-align: end;
+      align-self: end;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  row-gap: 10px;
+}
+
+body > h1 > p {
+  font-size: .5em;
+  text-align: center;
+}
+
+body > h1 > a {
+  text-decoration: none;
+  color: white;
+  background-color: grey;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: .8em;
+}
+
+body > h1 > a:hover {
+  color: gray;
+  background-color: whitesmoke;
+  -webkit-box-shadow: 1px 1px 2px black;
+          box-shadow: 1px 1px 2px black;
+}
+
+.card_selection {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  -ms-grid-columns: (minmax(150px, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  position: relative;
+  -ms-grid-row-align: start;
+      align-self: start;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
+  padding: 10px;
+}
+/*# sourceMappingURL=style.css.map */
