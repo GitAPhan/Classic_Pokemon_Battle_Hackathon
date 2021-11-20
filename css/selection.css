@@ -50,6 +50,20 @@ body > a {
   background-color: chartreuse;
 }
 
+#battleMessage {
+  position: absolute;
+  z-index: 10;
+  top: 62%;
+  width: 100%;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.404);
+  color: white;
+  padding: 20px;
+  opacity: 0;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
 .attackOptions {
   display: -ms-grid;
   display: grid;

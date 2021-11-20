@@ -4,7 +4,7 @@
         let card_id = card.target.id;
         Cookies.set('card_selection', JSON.stringify(card_id));
         console.log(this);
-        // location.reload(true);
+        location.reload(true);
     }
 
     // conditional statement to show choice
