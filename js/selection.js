@@ -32,7 +32,7 @@ function death_check() {
         computer_battle_window.innerText = "WINNER!";
         // image of winning Pokemon
         var winner = document.createElement('img');
-        winner.src = `/images/${opponent_pokemon.name}.png`;
+        winner.src = `/images/${opponent_pokemon.name}.gif`;
         computer_battle_window.appendChild(winner);
         // conditional for if the computer pokemon's health goes below 0
     } else if (computer_current_health <= 0) {
@@ -40,7 +40,7 @@ function death_check() {
         user_battle_window.innerText = "WINNER!";
         // image of winning Pokemon
         var winner = document.createElement('img');
-        winner.src = `/images/${chosen_pokemon.name}.png`;
+        winner.src = `/images/${chosen_pokemon.name}.gif`;
         user_battle_window.appendChild(winner);
     }
 }
@@ -87,6 +87,10 @@ function attack_sequence(button) {
         user_pokemon_health_status.innerText = user_current_health + "/" + chosen_pokemon.health;
         user_health_bar.style.width = `calc((${user_current_health}/${chosen_pokemon.health}) * 100%)`;
     }
+
+    // // display move that user has select
+    // var battle_log = document.getElementById('battleLog');
+    // battle_log.innerText = `Your ${chosen_pokemon.name} used ${button.target.innerText}`;
 
     // delayed computer response
     setTimeout(computer_attack_sequence, 3000);
@@ -168,9 +172,9 @@ if (Cookies.get('card_selection') !== undefined) {
     // using cookie to grab preassigned global variable with the same name
     var chosen_pokemon = window[JSON.parse(Cookies.get('card_selection'))];
 
-    // grabbing png of chosen pokemon
+    // grabbing gif of chosen pokemon
     var user_pokemon_image = document.createElement('img');
-    user_pokemon_image.src = `/images/${JSON.parse(Cookies.get('card_selection'))}.png`;
+    user_pokemon_image.src = `/images/${JSON.parse(Cookies.get('card_selection'))}.gif`;
     user_battle_window.appendChild(user_pokemon_image);
 
     // health variable to change during battle
@@ -256,9 +260,9 @@ if (Cookies.get('card_selection') !== undefined) {
     // random opponent pokemon
     var opponent_pokemon = opponent_pokemon_chooser[Math.floor(Math.random() * 4)];
 
-    // grabbing png of opponent pokemon
+    // grabbing gif of opponent pokemon
     var computer_pokemon_image = document.createElement('img');
-    computer_pokemon_image.src = `/images/${opponent_pokemon.name}.png`;
+    computer_pokemon_image.src = `/images/${opponent_pokemon.name}.gif`;
     computer_battle_window.appendChild(computer_pokemon_image);
 
     // health variable to change during battle
