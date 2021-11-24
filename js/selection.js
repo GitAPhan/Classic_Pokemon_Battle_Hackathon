@@ -1,7 +1,26 @@
+// function to filter computer's attack
+function attack_only(e) {
+            if (e.alt > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
 // function for computer attack sequence
 function computer_attack_sequence() {
-    // computer selects attack method
-    var computer_attack = opponent_attack[Math.floor(Math.random() * 2)];
+    // conditional to add healing options only after opponent pokemon is below -20
+    if (computer_current_health >= (opponent_pokemon.health - 20)) {
+        
+        var opponent_attack_array = opponent_attack.filter(attack_only);
+        var computer_attack = opponent_attack_array[Math.floor(Math.random() * 3)]
+
+    } else {
+        // computer selects attack method
+        var computer_attack = opponent_attack[Math.floor(Math.random() * 3)];
+    }
+
+
 
     // conditional statement to determine in the move is an attack on the user of computer heals self
     if (computer_attack.alt > 0) {
@@ -12,10 +31,31 @@ function computer_attack_sequence() {
         user_health_bar.style.width = `calc((${user_current_health}/${chosen_pokemon.health}) * 100%)`;
     } else {
         // computer heals self
-        computer_current_health = computer_current_health - computer_attack.alt;
+        computer_current_health = Math.min(opponent_pokemon.health, (computer_current_health - computer_attack.alt));
         // innerText of computer health and health bar width updated to reflect health remaining
         computer_pokemon_health_status.innerText = computer_current_health + "/" + opponent_pokemon.health;
         computer_health_bar.style.width = `calc((${computer_current_health}/${opponent_pokemon.health}) * 100%)`;
+    }
+
+    // conditional to display battle log
+    if (computer_attack.alt > 0) {
+        battle_log_header.innerText = opponent_pokemon.name + " attacks with " + computer_attack.innerText;
+        battle_log_description.style.opacity = "0";
+        // function to delay attack description text
+        function delay_text() {
+            battle_log_description.style.opacity = "1";
+            battle_log_description.innerText = chosen_pokemon.name + " took " + computer_attack.alt + " damage";
+        }
+        setTimeout(delay_text, 1500);
+    } else {
+        battle_log_header.innerText = opponent_pokemon.name + " heals with " + computer_attack.innerText;
+        battle_log_description.style.opacity = "0";
+        // function to delay heal sequence
+        function delay_heal_text() {
+            battle_log_description.style.opacity = "1";
+            battle_log_description.innerText = opponent_pokemon.name + " healed by " + computer_attack.alt * -1 + "hp";
+        }
+        setTimeout(delay_heal_text, 1500);
     }
 }
 
@@ -60,6 +100,10 @@ function battle_message_disappear() {
     battle_message.style.opacity = '0';
 }
 
+
+
+
+
 // function for attack sequence
 function attack_sequence(button) {
     // battle simulation in progress message
@@ -73,24 +117,59 @@ function attack_sequence(button) {
         all_buttons[i].style.pointerEvents = 'none';
     }
 
-    // conditional statement to determine if move is attack on computer or heal self
+    // conditional statement to determine if move is attack on computer or heal self or healing potion
     if (button.target.alt > 0) {
         // user attacks computer and affects current health
         computer_current_health = computer_current_health - button.target.alt;
         // innerText of computer health updated and health bar width updated to reflect health remaining
         computer_pokemon_health_status.innerText = computer_current_health + "/" + opponent_pokemon.health;
         computer_health_bar.style.width = `calc((${computer_current_health}/${opponent_pokemon.health}) * 100%)`;
+    } else if (button.target.innerText == 'Potion') {
+        heal_potion_quantity = heal_potion_quantity - 1;
+        heal_potion_description.innerText = `Heal: 10
+    Cost: ${heal_potion_quantity}/3`;
+        if (heal_potion_quantity < 1) {
+            heal_potion_button.removeEventListener('click', attack_sequence);
+            heal_potion_button.style.backgroundColor = "red";
+            heal_potion_description.innerText = `no more
+        potions`;
+        }
+        // user heals self using potion
+        user_current_health = Math.min((user_current_health - button.target.alt), chosen_pokemon.health);
+        // innerText of user health and health bar width updated to reflect health remaining
+        user_pokemon_health_status.innerText = user_current_health + "/" + chosen_pokemon.health;
+        user_health_bar.style.width = `calc((${user_current_health}/${chosen_pokemon.health}) * 100%)`;
     } else {
         // user heals self
-        user_current_health = user_current_health - button.target.alt;
+        user_current_health = Math.min((user_current_health - button.target.alt), chosen_pokemon.health);
         // innerText of user health and health bar width updated to reflect health remaining
         user_pokemon_health_status.innerText = user_current_health + "/" + chosen_pokemon.health;
         user_health_bar.style.width = `calc((${user_current_health}/${chosen_pokemon.health}) * 100%)`;
     }
 
-    // // display move that user has select
-    // var battle_log = document.getElementById('battleLog');
-    // battle_log.innerText = `Your ${chosen_pokemon.name} used ${button.target.innerText}`;
+    // conditional to display battle log
+    var pokemon_move_damage = button.target.alt
+    if (button.target.alt > 0) {
+        battle_log_header.innerText = chosen_pokemon.name + " attacks with " + button.target.innerText;
+        battle_log_description.style.opacity = "0";
+        // function to delay attack description text
+        function delay_text() {
+            battle_log_description.style.opacity = "1";
+            battle_log_description.innerText = opponent_pokemon.name + " took " + pokemon_move_damage + " damage";
+        }
+        setTimeout(delay_text, 1500);
+    } else {
+        battle_log_header.innerText = chosen_pokemon.name + " heals with " + button.target.innerText;
+        battle_log_description.style.opacity = "0";
+        // function to delay heal sequence
+        function delay_heal_text() {
+            battle_log_description.style.opacity = "1";
+            battle_log_description.innerText = chosen_pokemon.name + " healed by " + pokemon_move_damage * -1 + "hp";
+        }
+        setTimeout(delay_heal_text, 1500);
+    }
+
+
 
     // delayed computer response
     setTimeout(computer_attack_sequence, 3000);
@@ -102,7 +181,7 @@ function attack_sequence(button) {
     setTimeout(battle_message_disappear, 5000);
 
     // enable the buttons
-    setTimeout(enable_buttons,5000);
+    setTimeout(enable_buttons, 5000);
 
     console.log(this);
 }
@@ -121,7 +200,7 @@ var pikachu = {
 
 // Bulbasour statistics
 var bulbasaur = {
-    name: 'bulbasaur',
+    name: 'Bulbasaur',
     health: 70,
     attack_name: 'Ram',
     attack_damage: 10,
@@ -133,7 +212,7 @@ var bulbasaur = {
 
 // Charmander statistics
 var charmander = {
-    name: 'charmander',
+    name: 'Charmander',
     health: 70,
     attack_name: 'Gnaw',
     attack_damage: 10,
@@ -145,7 +224,7 @@ var charmander = {
 
 // Squirtle statistics
 var squirtle = {
-    name: "squirtle",
+    name: "Squirtle",
     health: 70,
     attack_name: 'Tackle',
     attack_damage: 10,
@@ -162,19 +241,17 @@ var opponent_pokemon_chooser = { 0: pikachu, 1: bulbasaur, 2: charmander, 3: squ
 var battle_window = document.getElementById('battleWindow');
 var user_battle_window = document.getElementById('userBattleWindow');
 var computer_battle_window = document.getElementById('computerBattleWindow');
-// var user_attack_options = document.getElementById('userAttack');
-// var computer_attack_options = document.getElementById('computerAttack');
 
 
 // conditional statement to display chosen pokemon 
 if (Cookies.get('card_selection') !== undefined) {
 
     // using cookie to grab preassigned global variable with the same name
-    var chosen_pokemon = window[JSON.parse(Cookies.get('card_selection'))];
+    var chosen_pokemon = window[JSON.parse(Cookies.get('card_selection')).name];
 
     // grabbing gif of chosen pokemon
     var user_pokemon_image = document.createElement('img');
-    user_pokemon_image.src = `/images/${JSON.parse(Cookies.get('card_selection'))}.gif`;
+    user_pokemon_image.src = `/images/${JSON.parse(Cookies.get('card_selection')).name}.gif`;
     user_battle_window.appendChild(user_pokemon_image);
 
     // health variable to change during battle
@@ -222,9 +299,25 @@ if (Cookies.get('card_selection') !== undefined) {
     // display mana that the user has
     // all pokemon to start with 2 mana and to be increased by 1 each round
     var user_mana = 2;
-    var user_mana_display = document.createElement('p');
-    user_mana_display.innerText = "Mana: " + user_mana;
-    user_attack_options.appendChild(user_mana_display);
+    // var user_mana_display = document.createElement('p');
+    // user_mana_display.innerText = "Mana: " + user_mana;
+    // user_attack_options.appendChild(user_mana_display);
+
+    // heal by potion for user
+    var heal_potion_container = document.createElement('div');
+    var heal_potion_button = document.createElement('button');
+    heal_potion_button.innerText = "Potion";
+    heal_potion_button.alt = Number(-10);
+    heal_potion_button.addEventListener('click', attack_sequence);
+    var heal_potion_description = document.createElement('p');
+    var heal_potion_quantity = Number(3);
+    heal_potion_description.innerText = `Heal: 10
+    Cost: ${heal_potion_quantity}/3`;
+
+    heal_potion_container.appendChild(heal_potion_button);
+    heal_potion_container.appendChild(heal_potion_description);
+    user_attack_options.appendChild(heal_potion_container);
+
 
     // user pokemon battle options
     var attack_two = document.createElement('div');
@@ -278,43 +371,34 @@ if (Cookies.get('card_selection') !== undefined) {
     // using the width to represent percent on health
     computer_health_bar.style.width = `calc((${computer_current_health}/${opponent_pokemon.health}) * 100%)`;
 
-    // user health status
+    // computer health status
     var computer_health = document.getElementById('computerHealth');
     computer_health.appendChild(computer_pokemon_health_status);
     computer_health.appendChild(computer_health_bar);
 
-    // create area to contain attack options;
-    var computer_attack_options = document.createElement('div');
-    computer_attack_options.classList.add('attackOptions');
-    computer_battle_window.appendChild(computer_attack_options);
+    // create area to contain event log;
+    var battle_log = document.createElement('div');
+    battle_log.classList.add('battleLog');
+    computer_battle_window.appendChild(battle_log);
 
-    // user pokemon battle options
-    var computer_attack_one = document.createElement('div');
-    // button with attack name
+    // battle log 
+    var battle_log_header = document.createElement('h3');
+    battle_log.appendChild(battle_log_header);
+
+    var battle_log_description = document.createElement('p');
+    battle_log.appendChild(battle_log_description);
+
+    // variables containing computer attack info
     var computer_attack_one_button = document.createElement('h3');
     computer_attack_one_button.innerText = opponent_pokemon.attack_name;
     // hidden attack value in alt
     computer_attack_one_button.alt = Number(opponent_pokemon.attack_damage);
-    // attack info
-    var computer_attack_one_description = document.createElement('p');
-    computer_attack_one_description.innerText = `Damage: ${opponent_pokemon.attack_damage}
-    Mana Cost: ${opponent_pokemon.attack_mana}`;
 
-    // appending time
-    computer_attack_one.appendChild(computer_attack_one_button);
-    computer_attack_one.appendChild(computer_attack_one_description);
-    computer_attack_options.appendChild(computer_attack_one);
-
-    // display mana that the user has
+    // display mana that the computer has
     // all pokemon to start with 2 mana and to be increased by 1 each round
     var computer_mana = 2;
-    var computer_mana_display = document.createElement('p');
-    computer_mana_display.innerText = "Mana: " + user_mana;
-    computer_attack_options.appendChild(computer_mana_display);
 
-    // user pokemon battle options
-    var computer_attack_two = document.createElement('div');
-    // button with attack name
+    // computer pokemon battle options
     var computer_attack_two_button = document.createElement('h3');
     computer_attack_two_button.innerText = opponent_pokemon.sec_attack_name;
     // attack info
@@ -323,23 +407,18 @@ if (Cookies.get('card_selection') !== undefined) {
     // conditional statement to see if the move is a heal
     if (typeof (opponent_pokemon.sec_attack_damage) === "string") {
         computer_attack_two_button.alt = Number(-opponent_pokemon.sec_attack_damage.substring(1));
-        computer_attack_two_description.innerText = `Heal: ${opponent_pokemon.sec_attack_damage.substring(1)}
-    Mana Cost: ${opponent_pokemon.sec_attack_mana} `;
         console.log('true');
     } else {
         computer_attack_two_button.alt = Number(opponent_pokemon.sec_attack_damage);
-        computer_attack_two_description.innerText = `Damage: ${opponent_pokemon.sec_attack_damage}
-    Mana Cost: ${opponent_pokemon.sec_attack_mana} `;
     };
 
-    // appending time
-    computer_attack_two.appendChild(computer_attack_two_button);
-    computer_attack_two.appendChild(computer_attack_two_description);
-    computer_attack_options.appendChild(computer_attack_two);
+    // computer heal potion
+    var heal_potion = document.createElement('h3');
+    heal_potion.innerText = "potion";
+    heal_potion.alt = Number(-10);
 
     // array for computer to choose random attack from
-    var opponent_attack = { 0: computer_attack_one_button, 1: computer_attack_two_button };
-
+    var opponent_attack = [computer_attack_one_button, computer_attack_two_button, heal_potion ];
 } else {
     battle_window.innerText = "Please choose a pokemon!";
 }

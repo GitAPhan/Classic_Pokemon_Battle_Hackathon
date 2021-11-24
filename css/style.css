@@ -27,8 +27,23 @@ body > h1 {
 }
 
 body > h1 > p {
-  font-size: .5em;
+  font-size: .6em;
   text-align: center;
+}
+
+body > h1 > p:nth-child(3) {
+  background-color: grey;
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+  font-size: .5em;
+}
+
+body > h1 > p:nth-child(3):hover {
+  color: gray;
+  background-color: whitesmoke;
+  -webkit-box-shadow: 1px 1px 2px black;
+          box-shadow: 1px 1px 2px black;
 }
 
 body > h1 > a {
@@ -47,17 +62,30 @@ body > h1 > a:hover {
           box-shadow: 1px 1px 2px black;
 }
 
+img {
+  width: 100%;
+}
+
 .card_selection {
   display: -ms-grid;
   display: grid;
   place-items: center;
-  -ms-grid-columns: (minmax(150px, 1fr))[auto-fill];
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  -ms-grid-columns: (minmax(250px, 1fr))[4];
+      grid-template-columns: repeat(4, minmax(250px, 1fr));
   position: relative;
   -ms-grid-row-align: start;
       align-self: start;
-  -webkit-column-gap: 10px;
-          column-gap: 10px;
-  padding: 10px;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  padding: 20px;
+  width: 90%;
+}
+
+img:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  cursor: pointer;
 }
 /*# sourceMappingURL=style.css.map */
