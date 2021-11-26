@@ -49,25 +49,25 @@
     }
 
     // assigned pikachu variable
-    let pikachu = document.getElementById('pikachu');
+    let pikachu = document.getElementById('Pikachu');
     pikachu.addEventListener('click', pokemon_selection);
     // hidden color
     pikachu.alt = "yellow";
 
     // assigned charmander variable
-    let charmander = document.getElementById('charmander');
+    let charmander = document.getElementById('Charmander');
     charmander.addEventListener('click', pokemon_selection);
     // hidden color
     charmander.alt = "red";
 
     // assigned squirtle variable
-    let squirtle = document.getElementById('squirtle');
+    let squirtle = document.getElementById('Squirtle');
     squirtle.addEventListener('click', pokemon_selection);
     // hidden color
     squirtle.alt = "blue";
 
     // assigned bulbasaur variable
-    let bulbasaur = document.getElementById('bulbasaur');
+    let bulbasaur = document.getElementById('Bulbasaur');
     bulbasaur.addEventListener('click', pokemon_selection);
     // hidden color
     bulbasaur.alt = "green";

@@ -11,8 +11,10 @@
 
 <body>
 
-        <a href="/index.html">Back to selection!</a>
-        
+        <a id="home_button" href="/index.html">Back to selection!</a>
+        <button class="game_button" id="clear_selection">CLEAR SELECTION</button>
+        <button class="game_button" id="clear_saved_game">CLEAR SAVED GAME</button>
+
         <h1 id="battleMessage">BATTLE SIMULATION IN PROGRESS...
                 <p id="battleLog"></p>
         </h1>
@@ -20,12 +22,12 @@
         <section id="battleWindow">
                 <article id="userBattleWindow">
                         <div class="health_bar" id="userHealth"></div>
-                
-                </article>
 
+                </article>
+                <h1 id="userManaPoints"></h1>
                 <article id="computerBattleWindow">
                         <div class="health_bar" id="computerHealth"></div>
-                
+
                 </article>
         </section>
 

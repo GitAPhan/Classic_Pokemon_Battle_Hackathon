@@ -18,6 +18,25 @@ body {
     }
 }
 
+button {
+    border: black 1px solid;
+    padding: 2px 4px;
+    border-radius: 5px;
+
+    &:hover {
+        box-shadow: black 1px 1px 3px;
+    }
+}
+
+.game_button {
+    position: absolute;
+    top: 5px;
+}
+
+#clear_saved_game {
+    right: 10px;
+}
+
 .health_bar {
     position        : relative;
     top             : 50%;
@@ -54,7 +73,19 @@ body {
     color: white;
     padding: 20px;
     opacity: 0;
-    transition: all .4s ease-in-out;
+    // transition: all .4s ease-in-out;
+}
+
+.attack_animation {
+    animation: user_attack ease-in-out .2s 1 alternate;
+}
+
+.computer_attack_animation {
+    animation: computer_attack ease-in-out .2s 1 alternate;
+}
+
+.heal_animation {
+    animation: pokemon_heal ease-in-out 1.2s 1 alternate;
 }
 
 .attackOptions {
@@ -97,4 +128,31 @@ img {
         width: 100%;
         grid-template-rows: 1fr 1fr 1fr;
     }
+}
+
+.home {
+    position: absolute;
+    top: calc(50% - 26.5px);
+    left: calc(50% - 118.24px);
+    z-index: 10;
+    font-size: 25px;
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.521);
+    border-radius: 25px;
+    border: white 1px solid;
+
+    &:hover {
+        color: black;
+        background-color: white;
+        box-shadow: black 1px 1px 3px;
+        border: grey 1px solid;
+    }
+}
+
+#userManaPoints {
+    position: absolute;
+    bottom: 5%;
+    color: blue;
 }

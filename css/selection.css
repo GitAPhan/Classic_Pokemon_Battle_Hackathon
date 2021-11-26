@@ -4,8 +4,171 @@
   font-family: sans-serif;
 }
 
-img, iframe {
+img,
+iframe {
   max-width: 100%;
+}
+
+@-webkit-keyframes user_attack {
+  0% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  50% {
+    -webkit-transform: translate(40px, -10px);
+            transform: translate(40px, -10px);
+  }
+  100% {
+    -webkit-transform: translate(100px, 0px);
+            transform: translate(100px, 0px);
+  }
+}
+
+@keyframes user_attack {
+  0% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  50% {
+    -webkit-transform: translate(40px, -10px);
+            transform: translate(40px, -10px);
+  }
+  100% {
+    -webkit-transform: translate(100px, 0px);
+            transform: translate(100px, 0px);
+  }
+}
+
+@-webkit-keyframes computer_attack {
+  0% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  50% {
+    -webkit-transform: translate(-40px, -10px);
+            transform: translate(-40px, -10px);
+  }
+  100% {
+    -webkit-transform: translate(-100px, 0px);
+            transform: translate(-100px, 0px);
+  }
+}
+
+@keyframes computer_attack {
+  0% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  50% {
+    -webkit-transform: translate(-40px, -10px);
+            transform: translate(-40px, -10px);
+  }
+  100% {
+    -webkit-transform: translate(-100px, 0px);
+            transform: translate(-100px, 0px);
+  }
+}
+
+@-webkit-keyframes pokemon_heal {
+  0% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  50% {
+    -webkit-transform: translate(0px, -20px);
+            transform: translate(0px, -20px);
+  }
+  55% {
+    -webkit-transform: translate(2px, -15px);
+            transform: translate(2px, -15px);
+  }
+  60% {
+    -webkit-transform: translate(-2px, -15px);
+            transform: translate(-2px, -15px);
+  }
+  65% {
+    -webkit-transform: translate(2px, -10px);
+            transform: translate(2px, -10px);
+  }
+  70% {
+    -webkit-transform: translate(-2px, -10px);
+            transform: translate(-2px, -10px);
+  }
+  75% {
+    -webkit-transform: translate(2px, -15px);
+            transform: translate(2px, -15px);
+  }
+  80% {
+    -webkit-transform: translate(2px, -15px);
+            transform: translate(2px, -15px);
+  }
+  85% {
+    -webkit-transform: translate(-2px, -10px);
+            transform: translate(-2px, -10px);
+  }
+  90% {
+    -webkit-transform: translate(2px, -15px);
+            transform: translate(2px, -15px);
+  }
+  95% {
+    -webkit-transform: translate(-2px, -15px);
+            transform: translate(-2px, -15px);
+  }
+  100% {
+    -webkit-transform: translate(2px, -10px);
+            transform: translate(2px, -10px);
+  }
+}
+
+@keyframes pokemon_heal {
+  0% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  50% {
+    -webkit-transform: translate(0px, -20px);
+            transform: translate(0px, -20px);
+  }
+  55% {
+    -webkit-transform: translate(2px, -15px);
+            transform: translate(2px, -15px);
+  }
+  60% {
+    -webkit-transform: translate(-2px, -15px);
+            transform: translate(-2px, -15px);
+  }
+  65% {
+    -webkit-transform: translate(2px, -10px);
+            transform: translate(2px, -10px);
+  }
+  70% {
+    -webkit-transform: translate(-2px, -10px);
+            transform: translate(-2px, -10px);
+  }
+  75% {
+    -webkit-transform: translate(2px, -15px);
+            transform: translate(2px, -15px);
+  }
+  80% {
+    -webkit-transform: translate(2px, -15px);
+            transform: translate(2px, -15px);
+  }
+  85% {
+    -webkit-transform: translate(-2px, -10px);
+            transform: translate(-2px, -10px);
+  }
+  90% {
+    -webkit-transform: translate(2px, -15px);
+            transform: translate(2px, -15px);
+  }
+  95% {
+    -webkit-transform: translate(-2px, -15px);
+            transform: translate(-2px, -15px);
+  }
+  100% {
+    -webkit-transform: translate(2px, -10px);
+            transform: translate(2px, -10px);
+  }
 }
 
 body {
@@ -22,6 +185,26 @@ body > a {
   top: 5px;
   left: 5px;
   z-index: 10;
+}
+
+button {
+  border: black 1px solid;
+  padding: 2px 4px;
+  border-radius: 5px;
+}
+
+button:hover {
+  -webkit-box-shadow: black 1px 1px 3px;
+          box-shadow: black 1px 1px 3px;
+}
+
+.game_button {
+  position: absolute;
+  top: 5px;
+}
+
+#clear_saved_game {
+  right: 10px;
 }
 
 .health_bar {
@@ -60,8 +243,21 @@ body > a {
   color: white;
   padding: 20px;
   opacity: 0;
-  -webkit-transition: all .4s ease-in-out;
-  transition: all .4s ease-in-out;
+}
+
+.attack_animation {
+  -webkit-animation: user_attack ease-in-out .2s 1 alternate;
+          animation: user_attack ease-in-out .2s 1 alternate;
+}
+
+.computer_attack_animation {
+  -webkit-animation: computer_attack ease-in-out .2s 1 alternate;
+          animation: computer_attack ease-in-out .2s 1 alternate;
+}
+
+.heal_animation {
+  -webkit-animation: pokemon_heal ease-in-out 1.2s 1 alternate;
+          animation: pokemon_heal ease-in-out 1.2s 1 alternate;
 }
 
 .attackOptions {
@@ -111,5 +307,33 @@ img {
   width: 100%;
   -ms-grid-rows: 1fr 1fr 1fr;
       grid-template-rows: 1fr 1fr 1fr;
+}
+
+.home {
+  position: absolute;
+  top: calc(50% - 26.5px);
+  left: calc(50% - 118.24px);
+  z-index: 10;
+  font-size: 25px;
+  text-decoration: none;
+  color: white;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.521);
+  border-radius: 25px;
+  border: white 1px solid;
+}
+
+.home:hover {
+  color: black;
+  background-color: white;
+  -webkit-box-shadow: black 1px 1px 3px;
+          box-shadow: black 1px 1px 3px;
+  border: grey 1px solid;
+}
+
+#userManaPoints {
+  position: absolute;
+  bottom: 5%;
+  color: blue;
 }
 /*# sourceMappingURL=selection.css.map */
