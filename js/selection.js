@@ -172,7 +172,7 @@ function death_check() {
         computer_battle_window.innerText = "WINNER!";
         // image of winning Pokemon
         var winner = document.createElement('img');
-        winner.src = `/images/${opponent_pokemon.name}.gif`;
+        winner.src = require(`/images/${opponent_pokemon.name}.gif`);
         computer_battle_window.appendChild(winner);
 
         var complete_msg = "Yay " + opponent_pokemon.name + "!";
@@ -186,7 +186,7 @@ function death_check() {
         user_battle_window.innerText = "WINNER!";
         // image of winning Pokemon
         var winner = document.createElement('img');
-        winner.src = `/images/${chosen_pokemon.name}.gif`;
+        winner.src = require(`/images/${chosen_pokemon.name}.gif`);
         user_battle_window.appendChild(winner);
 
         var complete_msg = "Yay " + chosen_pokemon.name + "!";
@@ -427,7 +427,7 @@ if (Cookies.get('game_status') !== undefined) {
 
     // grabbing gif of chosen pokemon
     var user_pokemon_image = document.createElement('img');
-    user_pokemon_image.src = `/images/${current_game_status.userPokemonSelection}.gif`;
+    user_pokemon_image.src = require(`/images/${current_game_status.userPokemonSelection}.gif`);
     user_pokemon_image.style.transform = "translate(0)";
     user_battle_window.appendChild(user_pokemon_image);
 
@@ -553,7 +553,7 @@ Mana Cost: ${chosen_pokemon.sec_attack_mana}`;
 
     // grabbing gif of opponent pokemon
     var computer_pokemon_image = document.createElement('img');
-    computer_pokemon_image.src = `/images/${current_game_status.computerPokemonSelection}.gif`;
+    computer_pokemon_image.src = require(`/images/${current_game_status.computerPokemonSelection}.gif`);
     computer_battle_window.appendChild(computer_pokemon_image);
 
     // health variable to change during battle
@@ -639,7 +639,7 @@ Mana Cost: ${chosen_pokemon.sec_attack_mana}`;
 
         // grabbing gif of chosen pokemon
         var user_pokemon_image = document.createElement('img');
-        user_pokemon_image.src = `/images/${JSON.parse(Cookies.get('card_selection')).name}.gif`;
+        user_pokemon_image.src = require(`/images/${JSON.parse(Cookies.get('card_selection')).name}.gif`);
         user_pokemon_image.style.transform = "translate(0)";
         user_battle_window.appendChild(user_pokemon_image);
 
@@ -767,7 +767,7 @@ Mana Cost: ${chosen_pokemon.sec_attack_mana}`;
 
         // grabbing gif of opponent pokemon
         var computer_pokemon_image = document.createElement('img');
-        computer_pokemon_image.src = `/images/${opponent_pokemon.name}.gif`;
+        computer_pokemon_image.src = require(`/images/${opponent_pokemon.name}.gif`);
         computer_battle_window.appendChild(computer_pokemon_image);
 
         // health variable to change during battle
